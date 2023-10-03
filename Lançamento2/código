@@ -1,0 +1,156 @@
+class FigurasGeometricas:
+    def calcular_area(self):
+        pass
+
+class Triangulo(FigurasGeometricas):
+    def calcular_area(self):
+        self.base = float(input("Base do Triângulo: "))
+        self.altura = float(input("Altura do Triângulo: "))
+        area = (self.base * self.altura) / 2
+        return area
+
+class Quadrado(FigurasGeometricas):
+    def calcular_area(self):
+        self.lado = float(input("Lado do Quadrado: "))
+        area = self.lado * self.lado
+        return area
+
+class Retangulo(FigurasGeometricas):
+    def calcular_area(self):
+        self.base = float(input("Base do Retângulo: "))
+        self.altura = float(input("Altura do Retângulo: "))
+        area = self.base * self.altura
+        return area
+
+class Circulo(FigurasGeometricas):
+    def calcular_area(self):
+        self.raio = float(input("Raio do Círculo: "))
+        area = 3.14 * self.raio * self.raio
+        return area
+
+class Losango(FigurasGeometricas):
+    def calcular_area(self):
+        self.diagonal_maior = float(input("Diagonal Maior do Losango: "))
+        self.diagonal_menor = float(input("Diagonal Menor do Losango: "))
+        area = (self.diagonal_maior * self.diagonal_menor) / 2
+        return area
+
+class Hexagono(FigurasGeometricas):
+    def _init_(self):
+        self.lado = float(input("Lado do Hexágono: "))
+
+    def calcular_area(self):
+        area = (3 * (3 * 0.5) * self.lado * 2) / 2
+        return area
+
+class Paralelogramo(FigurasGeometricas):
+    def _init_(self):
+        self.base = float(input("Base do Paralelogramo: "))
+        self.altura = float(input("Altura do Paralelogramo: "))
+
+    def calcular_area(self):
+        area = self.base * self.altura
+        return area
+
+class Trapezio(FigurasGeometricas):
+    def _init_(self):
+        self.base_maior = float(input("Base maior do Trapézio: "))
+        self.base_menor = float(input("Base menor do Trapézio: "))
+        self.altura = float(input("Altura do Trapézio: "))
+
+    def calcular_area(self):
+        area = ((self.base_maior + self.base_menor) * self.altura) / 2
+        return area
+
+class Menu:
+    def mostrar_menu(self):
+        figuras_cadastradas = []
+
+        while True:
+            print("Escolha uma das opções")
+            print("1- Cadastrar figura bidimensional")
+            print("2- Figuras cadastradas")
+            print("3- Editar figura cadastrada")
+            print("4- Deletar figura cadastrada")
+            print("5- Sair")
+
+            opcao = input("Opção: ")
+
+            if opcao == '1':
+                print("Escolha a figura:")
+                print("1- Triângulo")
+                print("2- Quadrado")
+                print("3- Retângulo")
+                print("4- Círculo")
+                print("5- Losango")
+                print("6- Hexágono")
+                print("7- Paralelogramo")
+                print("8- Trapézio")
+                opcao_figura = input("Opção da figura: ")
+
+                figura = None
+
+                if opcao_figura == '1':
+                    figura = Triangulo()
+                elif opcao_figura == '2':
+                    figura = Quadrado()
+                elif opcao_figura == '3':
+                    figura = Retangulo()
+                elif opcao_figura == '4':
+                    figura = Circulo()
+                elif opcao_figura == '5':
+                    figura = Losango()
+                elif opcao_figura == '6':
+                    figura = Hexagono()
+                elif opcao_figura == '7':
+                    figura = Paralelogramo()
+                elif opcao_figura == '8':
+                    figura = Trapezio()
+                else:
+                    print("Opção inválida. Tente novamente.")
+
+                if figura:
+                    area = figura.calcular_area()
+                    figuras_cadastradas.append((type(figura)._name_, area))
+
+            elif opcao == '2':
+                for figura, area in figuras_cadastradas:
+                    print("Nome da figura:", figura)
+                    print("Área:", area)
+                    print()
+
+            elif opcao == '3':
+                # Editar figura cadastrada
+                print("Figuras cadastradas para edição:")
+                for i, (figura, _) in enumerate(figuras_cadastradas):
+                    print(f"{i + 1}: {figura}")
+                opcao_edicao = int(input("Selecione o número da figura para editar: ")) - 1
+
+                if 0 <= opcao_edicao < len(figuras_cadastradas):
+                    figura, _ = figuras_cadastradas[opcao_edicao]
+                    if isinstance(figura, FigurasGeometricas):
+                        area = figura.calcular_area()
+                        figuras_cadastradas[opcao_edicao] = (type(figura)._name_, area)
+                    else:
+                        print("Opção inválida. Tente novamente.")
+
+            elif opcao == '4':
+                # Deletar figura cadastrada
+                print("Figuras cadastradas para exclusão:")
+                for i, (figura, _) in enumerate(figuras_cadastradas):
+                    print(f"{i + 1}: {figura}")
+                opcao_exclusao = int(input("Selecione o número da figura para excluir: ")) - 1
+
+                if 0 <= opcao_exclusao < len(figuras_cadastradas):
+                    figura, _ = figuras_cadastradas.pop(opcao_exclusao)
+                    print(f"A figura {figura} foi excluída.")
+
+            elif opcao == '5':
+                break
+
+            else:
+                print("Opção inválida. Tente novamente.")
+
+if _name_ == "_main_":
+    menu = Menu()
+    menu.mostrar_menu()
