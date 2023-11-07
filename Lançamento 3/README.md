@@ -1,8 +1,10 @@
 ## UML Sudoku
 
 Trabalho de UML para a matéria de Orientação à Objetos 
+
 **Nome: Maria Clara Alves**
-**Matrícula: 221008329***
+
+**Matrícula: 221008329**
 
 ## Objetivo
 
